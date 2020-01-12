@@ -9,7 +9,7 @@ import org.hibernate.cfg.Configuration;
 public class HibernateUtil {
 
 	// Inicialitzem la sessionFactory
-	private static SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();;
+	private static SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 	
 	/*
 	 * Mètode que retorna la SessionFactory

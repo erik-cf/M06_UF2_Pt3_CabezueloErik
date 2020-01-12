@@ -1,11 +1,6 @@
 package persistencia;
 
-/*
- * Aquesta classe conté els mètodes que gestionen les accions d'Hibernate
- * com desar classes, eliminar-les, o actualitzar-les.
- * Tot el que s'hagi de fer mitjançant una sessió d'Hibernate
- * estarà en aquesta classe.
- */
+
 import java.util.ArrayList;
 
 import javax.persistence.Query;
@@ -17,7 +12,12 @@ import biblioteca.Autor;
 import biblioteca.Biblioteca;
 import biblioteca.Llibre;
 import biblioteca.Persona;
-
+/*
+ * Aquesta classe conté els mètodes que gestionen les accions d'Hibernate
+ * com desar classes, eliminar-les, o actualitzar-les.
+ * Tot el que s'hagi de fer mitjançant una sessió d'Hibernate
+ * estarà en aquesta classe.
+ */
 public class HibernateManager {
 	
 	// Inicialitzem la sessió, que serà l'encarregada de gestionar totes les accions d'Hibernate
