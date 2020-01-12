@@ -6,8 +6,18 @@ import biblioteca.Llibre;
 import biblioteca.Persona;
 import persistencia.HibernateManager;
 
+/*
+ * Aquesta classe ens fa de pont entre la classe Main i la classe
+ * HibernateManager, i d0aquí ve el nom de Bridge.
+ * Per tal de no tenir la classe Main sobrecarregada de mètodes,
+ * els separem aquí.
+ */
 public class BridgeClass {
 
+	/*
+	 * Mètode que s'executa a l'iniciar el programa per a crear una biblioteca, un llibre i un autor
+	 * per aquest llibre.
+	 */
 	public static void initialize() {
 		System.out.println("Primer hem de crear una biblioteca i un llibre per a aquesta biblioteca: ");
 		System.out.println("Introdueix el nom de la biblioteca: ");
@@ -31,12 +41,20 @@ public class BridgeClass {
 		System.out.println("Inicialització finalitzada!");
 	}
 
+	/*
+	 * Mètode que demana dades per crear l'autor i truca el mètode corresponent
+	 * a l'HibernateManager
+	 */
 	public static void creaAutor() {
 		System.out.println("Introdueix el nom de l'autor: ");
 		checkAutor(Main.sc.nextLine());
 
 	}
 
+	/*
+	 * Mètode que demana dades per crear la biblioteca i truca el mètode corresponent
+	 * a l'HibernateManager
+	 */
 	public static void creaBiblio() {
 		System.out.println("Introdueix el nom de la biblioteca: ");
 		int id = HibernateManager.createEmptyBiblioteca(Main.sc.nextLine());
@@ -47,6 +65,10 @@ public class BridgeClass {
 		}
 	}
 
+	/*
+	 * Mètode que demana dades per crear la persona i truca el mètode corresponent
+	 * a l'HibernateManager
+	 */
 	public static void creaPersona() {
 		System.out.println("Introdueix el dni de la persona: ");
 		int dni = Main.validateIntInput();
@@ -62,6 +84,10 @@ public class BridgeClass {
 		}
 	}
 
+	/*
+	 * Mètode que demana dades per crear el llibre i truca el mètode corresponent
+	 * a l'HibernateManager
+	 */
 	public static void creaLlibre() {
 		System.out.println("Introdueix nom del llibre: ");
 		String nomLlibre = Main.sc.nextLine();
@@ -72,6 +98,10 @@ public class BridgeClass {
 		HibernateManager.createLlibre(nomLlibre, editorial, checkAutor(nomAutor));
 	}
 
+	/*
+	 * Mètode que imprimeix els llibres disponibles i demana un id per afegir-ho a
+	 * la instancia d'una classe generica que se li passa per paràmetre
+	 */
 	public static <T> void addLlibresToInstance(T t) {
 		int idLlibre;
 		HibernateManager.printInstances(Llibre.class);
@@ -93,6 +123,9 @@ public class BridgeClass {
 		} while (idLlibre != 0);
 	}
 
+	/*
+	 * Mètode que demana quin llistat es vol imprimir
+	 */
 	public static void solicitaLlistat() {
 		System.out.println("Quina informacio vols veure? ");
 		System.out.println("1 - Autors");
@@ -117,6 +150,9 @@ public class BridgeClass {
 		}
 	}
 
+	/*
+	 * Mètode que retorna un autor si existeix(el busca pel nom), i si no existeix, el crea
+	 */
 	public static Autor checkAutor(String nomAutor) {
 		Autor autor;
 		if ((autor = HibernateManager.getAutorFromName(nomAutor)) == null)
@@ -125,6 +161,10 @@ public class BridgeClass {
 		return autor;
 	}
 
+	/*
+	 * Mètode que imprimeix un llistat i demana l'identificador d'un dels objectes impresos
+	 * per a retornar-lo
+	 */
 	public static <T> int returnIdFromUserInput(Class<T> classType) {
 		HibernateManager.printInstances(classType);
 		String identificador;
@@ -137,6 +177,10 @@ public class BridgeClass {
 		return Main.validateIntInput();
 	}
 
+	/*
+	 * Mètode que torna a demanar els camps de biblioteca per tal de modificar-los
+	 * i actualitzar la instància persistida.
+	 */
 	public static void modificaBiblioteca() {
 		int id = returnIdFromUserInput(Biblioteca.class);
 		System.out.println("Introdueix el nou nom: ");
@@ -154,6 +198,10 @@ public class BridgeClass {
 		HibernateManager.updateObject(b);
 	}
 
+	/*
+	 * Mètode que torna a demanar els camps de persona per tal de modificar-los
+	 * i actualitzar la instància persistida.
+	 */
 	public static void modificaPersona() {
 		int id = returnIdFromUserInput(Persona.class);
 		System.out.println("Introdueix el nou nom: ");
@@ -173,6 +221,10 @@ public class BridgeClass {
 		HibernateManager.updateObject(p);
 	}
 	
+	/*
+	 * Mètode que torna a demanar els camps d'autor per tal de modificar-los
+	 * i actualitzar la instància persistida.
+	 */
 	public static void modificaAutor() {
 		int id = returnIdFromUserInput(Autor.class);
 		System.out.println("Introdueix el nou nom: ");
@@ -185,6 +237,10 @@ public class BridgeClass {
 		HibernateManager.updateObject(a);
 	}
 	
+	/*
+	 * Mètode que torna a demanar els camps de llibre per tal de modificar-los
+	 * i actualitzar la instància persistida.
+	 */
 	public static void modificaLlibre() {
 		int id = returnIdFromUserInput(Llibre.class);
 		System.out.println("Introdueix el nou nom: ");

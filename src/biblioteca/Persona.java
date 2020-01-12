@@ -16,12 +16,18 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+/*
+ * Classe que defineix la Persona (soci de la biblioteca)
+ */
 @Entity
 @Table(name = "persona")
 public class Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/*
+	 * Mapegem els atributs amb anotacions
+	 */
 	@Id
 	@Column(name = "dni")
 	private int dni;
@@ -32,11 +38,18 @@ public class Persona implements Serializable {
 	@Column(name = "telefon")
 	private int telefon;
 
+	/*
+	 * Com entre Persona i llibre hi ha una relació un a molts, utilitzem el ManyToMany,
+	 * indiquem que aquesta relació es guardarà a la taula personallibre.
+	 */
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "personallibre", joinColumns = { @JoinColumn(name = "dni_persona") }, inverseJoinColumns = {
 			@JoinColumn(name = "id_llibre") })
 	private Set<Llibre> llibres;
 
+	/*
+	 * Mètode que afegeix un llibre a Persona
+	 */
 	public void addLlibre(Llibre l) {
 		if (llibres == null) {
 			llibres = new HashSet<Llibre>();
@@ -44,10 +57,17 @@ public class Persona implements Serializable {
 		llibres.add(l);
 	}
 
+	/*
+	 * Getters i Setters
+	 */
 	public int getDni() {
 		return dni;
 	}
 
+	/*
+	 * En aquest cas, l'identificador de Persona que és el DNI, no és un autoIncrementable,
+	 * pel que el mètode setDni és públic.
+	 */
 	public void setDni(int dni) {
 		this.dni = dni;
 	}
@@ -76,6 +96,9 @@ public class Persona implements Serializable {
 		this.llibres = llibres;
 	}
 	
+	/*
+	 * Mètode toString
+	 */
 	public String toString() {
 		return "Persona amb dni " + dni + " i nom \"" + nom + "\":\n"
 				+ "\ttelefon: " + telefon + "\n"
@@ -83,6 +106,9 @@ public class Persona implements Serializable {
 				+ printLlibres();
 	}
 	
+	/*
+	 * Mètode que imprimeix els llibres d'una persona
+	 */
 	public String printLlibres() {
 		if(llibres == null) return "";
 		String text = "";

@@ -5,11 +5,18 @@ import java.util.Scanner;
 
 import biblioteca.*;
 import persistencia.HibernateManager;
-
+/*
+ * Aquesta és la classe principal del programa on és
+ * el mètode Main
+ */
 public class Main {
 
+	// Necessitarem d'un Scanner per a demanar input de l'usuari
 	public static final Scanner sc = new Scanner(System.in);
 
+	/*
+	 * Aquest mètode ens imprimeix el menú de les accions que pot fer el programa
+	 */
 	private static boolean menu() {
 		System.out.println("Benvingut a la biblioteca. Què vols fer?");
 		System.out.println("\t 1 - Crear un nou Autor.");
@@ -29,6 +36,9 @@ public class Main {
 		return opcio();
 	}
 
+	/*
+	 * Aquest mètode truca a altres mètodes depenent de la opció escollida
+	 */
 	private static boolean opcio() {
 		int opcio = validateIntInput();
 
@@ -81,6 +91,9 @@ public class Main {
 		return true;
 	}
 
+	/*
+	 * Aquest mètode ens comprova si s'ha introduit un integer o no quan esperem un.
+	 */
 	public static int validateIntInput() {
 		int n;
 		while (true) {
@@ -95,9 +108,17 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Mètode main de l'aplicació
+	 */
 	public static void main(String[] args) {
 		boolean end;
+		// Comprovem si existeix cap instancia, he posat biblioteca, però podria
+		// haver posat altra classe persistida també
 		if (HibernateManager.getInstances(Biblioteca.class).size() == 0)
+			// Si no hi ha cap instancia, truquem a initialize
+			// Sempre es trucarà a aquest mètode ja que Hibernate sempre fa un drop i create
+			// cada cop que inicia l'aplicació
 			BridgeClass.initialize();
 		do{
 			end = menu();
